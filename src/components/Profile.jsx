@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ResetMenu from "./ResetMenu";
 import Icons from "./Icons";
 import { useReset } from "../constants/reset";
-
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 const { height } = Dimensions.get('window');
 
 const Profile = () => {
@@ -12,6 +12,60 @@ const Profile = () => {
     const [budget, setBudget] = useState(0);
     const [resetMenuVisible, setResetMenuVisible] = useState(false);
     const { resetKey } = useReset();
+    const [selectAvatar, setSelectAvatar] = useState(null);
+    //console.log('selectAvatar==>', selectAvatar)
+    
+    useEffect(() => {
+        getData();
+    }, []);
+
+    useEffect(() => {
+        setData();
+    }, [selectAvatar]);
+
+    const setData = async () => {
+        try {
+            const data = {
+                selectAvatar,
+            };
+
+            const jsonData = JSON.stringify(data);
+            await AsyncStorage.setItem(`Profile`, jsonData);
+            console.log('Дані збережено в AsyncStorage');
+        } catch (e) {
+            console.log('Помилка збереження даних:', e);
+        }
+    };
+
+    const getData = async () => {
+        try {
+            const jsonData = await AsyncStorage.getItem(`Profile`);
+            if (jsonData !== null) {
+                const parsedData = JSON.parse(jsonData);
+                console.log('parsedData==>', parsedData);
+                setSelectAvatar(parsedData.selectAvatar);
+            }
+        } catch (e) {
+            console.log('Помилка отримання даних:', e);
+        }
+    };
+
+    const SelectAvatarPicer = () => {
+        let options = {
+            storageOptios: {
+                path: 'image',
+            },
+        };
+
+        launchImageLibrary(options, response => {
+            if (!response.didCancel) {
+                //console.log('response==>', response.assets[0].uri);
+                setSelectAvatar(response.assets[0].uri);
+            } else {
+                console.log('Вибір скасовано');
+            }
+        });
+    };
 
     const loadBudgetAndTransactions = async () => {
         try {
@@ -32,9 +86,9 @@ const Profile = () => {
 
     useEffect(() => {
         loadBudgetAndTransactions();
-        if(resetKey) {
+        if (resetKey) {
             setBudget(0);
-            setTransactions([]);  
+            setTransactions([]);
         }
     }, [resetKey]);
 
@@ -47,7 +101,7 @@ const Profile = () => {
     };
 
     const handleResetMenuVisible = async () => {
-        if(!resetMenuVisible) {
+        if (!resetMenuVisible) {
             await loadBudgetAndTransactions();
         }
 
@@ -56,60 +110,69 @@ const Profile = () => {
 
     return (
         <ImageBackground
-        source={require('../assets/back/bg.jpg')}
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      >
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.resetMenu} onPress={() => handleResetMenuVisible()}>
-                <Icons type={'menu'}/>
-            </TouchableOpacity>
-            <Text style={[styles.titleText, {color: '#fff'}]}>My profile</Text>
-            <View style={{width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 26}}>
-                <View style={styles.imgContainer}>
-                    <Image style={styles.Image} source={require('../assets/decor/image.png')}/>
-                </View>
-                <Text style={[styles.titleText, {width: 112, alignSelf: 'center', color: '#fff'}]}>The king of your money</Text>
-            </View>
-            <View style={styles.balanceContainer}>
-                <Text style={[styles.titleText, {color: '#fff'}]}>Total balance:</Text>
-                <View style={styles.balanceBox}>
-                    <View style={styles.dateBox}>
-                        <Text style={styles.dateText}>{formatDate(new Date())}</Text>
+            source={require('../assets/back/bg.jpg')}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+        >
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.resetMenu} onPress={() => handleResetMenuVisible()}>
+                    <Icons type={'menu'} />
+                </TouchableOpacity>
+                <Text style={[styles.titleText, { color: '#fff' }]}>My profile</Text>
+                <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 26 }}>
+                    <View>
+                        {!selectAvatar ? (
+                            <TouchableOpacity style={styles.imgContainer} onPress={() => { SelectAvatarPicer() }}>
+                            <Image style={styles.Image} source={require('../assets/decor/image.png')} />
+                        </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity style={styles.imgContainer} onPress={() => { SelectAvatarPicer() }}>
+                            <Image style={styles.Image} source={{uri: selectAvatar}} />
+                        </TouchableOpacity>    
+                        )}
+                        
                     </View>
-                    <Text style={styles.balanceText}>{budget.toFixed(2)}$</Text>
-                    <Image source={require('../assets/decor/crown-small.png')} style={styles.crownSmall}/>
-                    <Image source={require('../assets/decor/crown-big.png')} style={styles.crownBig}/>
+                    <Text style={[styles.titleText, { width: 112, alignSelf: 'center', color: '#fff' }]}>The king of your money</Text>
                 </View>
-            </View>
-            <View style={styles.transactionsContainer}>
-                <Text style={[styles.titleText, {color: '#fff'}]}>List of transactions</Text>
-                {transactions.length === 0 ? (
-                    <View style={styles.transBox}>
-                        <Text style={styles.noTransText}>Here will be your transactions</Text>
+                <View style={styles.balanceContainer}>
+                    <Text style={[styles.titleText, { color: '#fff' }]}>Total balance:</Text>
+                    <View style={styles.balanceBox}>
+                        <View style={styles.dateBox}>
+                            <Text style={styles.dateText}>{formatDate(new Date())}</Text>
+                        </View>
+                        <Text style={styles.balanceText}>{budget.toFixed(2)}$</Text>
+                        <Image source={require('../assets/decor/crown-small.png')} style={styles.crownSmall} />
+                        <Image source={require('../assets/decor/crown-big.png')} style={styles.crownBig} />
                     </View>
-                ) : (
-                    <ScrollView>
-                        {transactions.map((item, index) => (
-                            <View key={index} style={styles.transBox}>
-                                <View style={styles.transactionTextContainer}>
-                                    <Text style={styles.transactionDate}>{item.date}</Text>
-                                    <Text style={styles.transactionName}>{item.name}</Text>
+                </View>
+                <View style={styles.transactionsContainer}>
+                    <Text style={[styles.titleText, { color: '#fff' }]}>List of transactions</Text>
+                    {transactions.length === 0 ? (
+                        <View style={styles.transBox}>
+                            <Text style={styles.noTransText}>Here will be your transactions</Text>
+                        </View>
+                    ) : (
+                        <ScrollView>
+                            {transactions.map((item, index) => (
+                                <View key={index} style={styles.transBox}>
+                                    <View style={styles.transactionTextContainer}>
+                                        <Text style={styles.transactionDate}>{item.date}</Text>
+                                        <Text style={styles.transactionName}>{item.name}</Text>
+                                    </View>
+                                    <Text style={[styles.transactionAmount, item.transactionType === 'add' ? { color: '#14b910' } : { color: '#f66233' }]}>
+                                        {item.transaction}
+                                    </Text>
                                 </View>
-                                <Text style={[styles.transactionAmount, item.transactionType === 'add' ? {color: '#14b910'} : {color: '#f66233'}]}>
-                                    {item.transaction}
-                                </Text>
-                            </View>
-                        ))}
-                    </ScrollView>
-                )}
-            </View>
+                            ))}
+                        </ScrollView>
+                    )}
+                </View>
 
-            <ResetMenu 
-                visible={resetMenuVisible} 
-                onClose={handleResetMenuVisible}
+                <ResetMenu
+                    visible={resetMenuVisible}
+                    onClose={handleResetMenuVisible}
                 />
-        </View>
+            </View>
         </ImageBackground>
     )
 };
