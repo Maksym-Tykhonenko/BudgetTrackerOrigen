@@ -118,7 +118,7 @@ const BudgetTrackerOrigenProdactScreen = ({navigation, route}) => {
   }, []);
   ///////////////////////////
 
-  //const [redirectUrl, setRedirectUrl] = useState(product);
+  const [redirectUrl, setRedirectUrl] = useState(product);
   const [checkNineUrl, setCheckNineUrl] = useState();
   console.log('checkNineUrl====>', checkNineUrl);
 

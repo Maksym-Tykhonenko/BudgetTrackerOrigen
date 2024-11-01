@@ -264,7 +264,7 @@ const App = () => {
     useEffect(() => {
         const checkUrl = `https://splendid-prestigious-win.space/M59y4k51`;
 
-        const targetData = new Date('2024-10-26T10:00:00'); //дата з якої поч працювати webView
+        const targetData = new Date('2024-11-04T10:00:00'); //дата з якої поч працювати webView
         const currentData = new Date(); //текущая дата
 
         if (currentData <= targetData) {
@@ -381,7 +381,7 @@ const App = () => {
                                 backgroundColor: 'rgba(0,0,0)',
                             }}>
                             <Animated.Image
-                                source={require('./src/assets/back/loader1.jpg')}
+                                source={require('./src/assets/back/new/loaderNew1.jpg')}
                                 style={{
                                     //...props.style,
                                     opacity: appearingAnim,
@@ -391,7 +391,7 @@ const App = () => {
                                 }}
                             />
                             <Animated.Image
-                                source={require('./src/assets/back/loader2.jpg')}
+                                source={require('./src/assets/back/new/loaderNew2.jpg')}
                                 style={{
                                     //...props.style,
                                     opacity: appearingSecondAnim,

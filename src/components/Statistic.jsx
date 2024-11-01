@@ -51,7 +51,7 @@ const Statistic = () => {
 
     return (
         <ImageBackground
-        source={require('../assets/back/bg.jpg')}
+        source={require('../assets/back/new/bg1.jpg')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
