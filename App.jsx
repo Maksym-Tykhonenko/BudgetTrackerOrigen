@@ -175,7 +175,7 @@ const App = () => {
         }
     };
 
-    // 3RD FUNCTION - Отримання найменування AppsFlyer
+    // 3RD FUNCTION - Отримання найменування AppsFlyer ммвімвімвім
     const onInstallConversionDataCanceller = appsFlyer.onInstallConversionData(
         res => {
             try {
