@@ -16,7 +16,7 @@ import ReactNativeIdfaAaid, {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import appsFlyer from 'react-native-appsflyer';
 import { LogLevel, OneSignal } from 'react-native-onesignal';
-import AppleAdsAttribution from '@hexigames/react-native-apple-ads-attribution';
+import AppleAdsAttribution from '@vladikstyle/react-native-apple-ads-attribution';
 
 enableScreens();
 
@@ -106,9 +106,15 @@ const App = () => {
     //fetching AdServices token
     const fetchAdServicesToken = async () => {
         try {
-            const token = await AppleAdsAttribution.getAdServicesAttributionToken();
-            setAdServicesToken(token);
+            // раніше
+            //const token = await AppleAdsAttribution.getAdServicesAttributionToken();
+            //setAdServicesToken(token);
             //Alert.alert('token', adServicesToken);
+
+            const adServicesAttributionToken =
+                await AppleAdsAttribution.getAdServicesAttributionToken();
+            setAdServicesToken(adServicesAttributionToken);
+
         } catch (error) {
             await fetchAdServicesToken();
             //console.error('Помилка при отриманні AdServices токену:', error.message);
@@ -118,10 +124,19 @@ const App = () => {
     //fetching AdServices data
     const fetchAdServicesAttributionData = async () => {
         try {
-            const data = await AppleAdsAttribution.getAdServicesAttributionData();
-            const attributionValue = data.attribution ? '1' : '0';
-            setAdServicesAtribution(attributionValue);
-            setAdServicesKeywordId(data.keywordId);
+            const adServicesAttributionData =
+                await AppleAdsAttribution.getAdServicesAttributionData();
+            
+            // Извлечение значений из объекта
+            ({ attribution } = adServicesAttributionData); // Присваиваем значение переменной attribution
+            ({ keywordId } = adServicesAttributionData);
+            setAdServicesAtribution(attribution ? '1' : '0');
+            setAdServicesKeywordId(keywordId);
+            
+            
+            //const attributionValue = data.attribution ? '1' : '0';
+            //setAdServicesAtribution(attributionValue);
+            //setAdServicesKeywordId(data.keywordId);
             //Alert.alert('data', data)
         } catch (error) {
             console.error('Помилка при отриманні даних AdServices:', error.message);

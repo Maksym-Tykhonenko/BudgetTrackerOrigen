@@ -10,12 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "@hexigames/react-native-apple-ads-attribution": "^1.0.2",
     "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
     "@sparkfabrik/react-native-idfa-aaid": "^1.2.0",
+    "@vladikstyle/react-native-apple-ads-attribution": "^1.0.4",
     "react": "^18.3.1",
     "react-native": "^0.75.4",
     "react-native-appsflyer": "^6.15.1",

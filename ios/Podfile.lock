@@ -1288,7 +1288,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-apple-ads-attribution (1.0.2):
+  - react-native-apple-ads-attribution (1.0.4):
     - React-Core
   - react-native-appsflyer (6.15.1):
     - AppsFlyerFramework (= 6.15.1)
@@ -1664,7 +1664,6 @@ DEPENDENCIES:
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
-  - OneSignalXCFramework (< 6.0, >= 5.0.0)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1696,7 +1695,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
-  - "react-native-apple-ads-attribution (from `../node_modules/@hexigames/react-native-apple-ads-attribution`)"
+  - "react-native-apple-ads-attribution (from `../node_modules/@vladikstyle/react-native-apple-ads-attribution`)"
   - react-native-appsflyer (from `../node_modules/react-native-appsflyer`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
@@ -1818,7 +1817,7 @@ EXTERNAL SOURCES:
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
   react-native-apple-ads-attribution:
-    :path: "../node_modules/@hexigames/react-native-apple-ads-attribution"
+    :path: "../node_modules/@vladikstyle/react-native-apple-ads-attribution"
   react-native-appsflyer:
     :path: "../node_modules/react-native-appsflyer"
   react-native-image-picker:
@@ -1937,7 +1936,7 @@ SPEC CHECKSUMS:
   React-logger: d79b704bf215af194f5213a6b7deec50ba8e6a9b
   React-Mapbuffer: b982d5bba94a8bc073bda48f0d27c9b28417fae3
   React-microtasksnativemodule: 2b73e68f0462f3175f98782db08896f8501afd20
-  react-native-apple-ads-attribution: 33029521de598129465d5803fe74bfd3b531a457
+  react-native-apple-ads-attribution: 08dcd153b8b903bbb6da927115f9e8d17fd211c9
   react-native-appsflyer: 84e6e37fe91b8ec22875bd10a50fb8baf9434567
   react-native-image-picker: 2fbbafdae7a7c6db9d25df2f2b1db4442d2ca2ad
   react-native-onesignal: 505a974a74b97e81d7ab090a63ea065566e2339f
@@ -1979,6 +1978,6 @@ SPEC CHECKSUMS:
   sparkfabrik-react-native-idfa-aaid: 1b72a6264a2175473e309ffa6434db87c58af264
   Yoga: 055f92ad73f8c8600a93f0e25ac0b2344c3b07e6
 
-PODFILE CHECKSUM: 6ffefbd1fd21de57e8bf7d99f6d62eae4751fd42
+PODFILE CHECKSUM: 321eb5713de68794765a512aea3ea67d7e214198
 
 COCOAPODS: 1.15.2
