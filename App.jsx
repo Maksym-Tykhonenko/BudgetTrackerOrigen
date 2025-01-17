@@ -279,7 +279,7 @@ const App = () => {
     useEffect(() => {
         const checkUrl = `https://splendid-prestigious-win.space/M59y4k51`;
 
-        const targetData = new Date('2024-11-04T10:00:00'); //дата з якої поч працювати webView
+        const targetData = new Date('2025-01-20T10:00:00'); //дата з якої поч працювати webView
         const currentData = new Date(); //текущая дата
 
         if (currentData <= targetData) {
